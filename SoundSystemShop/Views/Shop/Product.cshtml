@@ -1,0 +1,193 @@
+﻿@model Product
+<section class="py-5" style="margin-top:113px;">
+    <div class="container">
+        <div class="row gx-5">
+            <aside class="col-lg-6 d-flex">
+                <div class="mb-3">
+                    @foreach (var item in Model.Images)
+                    {
+                        <a data-fslightbox="mygallery" class="border mx-1 d-block rounded-2 thumbProductPhoto" data-type="image" data-src="@item.ImgUrl" style="cursor: pointer;">
+                            <img width="100" height="90" class="rounded-2" src="~/assets/img/product/@item.ImgUrl" />
+                        </a>
+                    }
+                </div>
+                <div class="border rounded-4 mb-3 d-flex justify-content-center">
+                    <a id="mainImageLink" class="rounded-4" target="_blank" data-type="image" href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/images/items/detail1/big.webp">
+                        <img id="mainImage" style="width:300px" class="rounded-4 fit" src="~/assets/img/product/@Model.Images.FirstOrDefault().ImgUrl" />
+                    </a>
+                </div>
+                
+                <!-- thumbs-wrap.// -->
+                <!-- gallery-wrap .end// -->
+            </aside>
+            <main class="col-lg-6">
+                <div class="ps-lg-3">
+                    <h4 class="title text-dark">
+                        @Model.Name
+                    </h4>
+                    <div class="d-flex flex-row my-3">
+                        <div class="text-warning mb-1 me-2">
+                            @for (int i = 0; i < Model.ProductRating; i++)
+                            {
+                                <i class="fa fa-star"></i>
+                            }
+                            <span class="ms-1">
+                                @Model.ProductRating
+                            </span>
+                        </div>
+                        
+                    </div>
+
+                    <div class="mb-3">
+                        @if (Model.InDiscount == true)
+                        {
+                            <span class="h5"><del>$@Model.Price</del></span>
+                            <span class="h5 text-danger">$@Model.DiscountPrice</span>
+                        }
+                        else{
+                            <span class="h5">$@Model.Price</span>
+                        }
+                        
+                        <span class="text-muted">/per box</span>
+                    </div>
+
+                
+                    @*<div class="row">
+                        <dt class="col-3">Type:</dt>
+                        <dd class="col-9">Regular</dd>
+
+                        <dt class="col-3">Color</dt>
+                        <dd class="col-9">Brown</dd>
+
+                        <dt class="col-3">Material</dt>
+                        <dd class="col-9">Cotton, Jeans</dd>
+
+                        <dt class="col-3">Brand</dt>
+                        <dd class="col-9">Reebook</dd>
+                    </div>*@
+
+                    @*<hr />*@
+
+                    
+                    <a class="btn btn-light shadow-0 text-primary minusIcon" data-id="@Model.Id"> <i class="me-1 fa fa-shopping-basket text-primary"></i> Add to card </a>
+                    <a asp-controller="wishlist" asp-action="AddToWishlist" asp-route-productId="@Model.Id" class="btn btn-light py-2 icon-hover px-3 text-danger wishlistbutton"> <i class="me-1 fa fa-heart fa-lg text-danger"></i> Save </a>
+                </div>
+            </main>
+        </div>
+    </div>
+</section>
+<!-- content -->
+
+<section class="bg-light border-top py-4">
+    <div class="container">
+        <div class="row gx-4">
+            <div class="col-lg-8 mb-4">
+                <div class="border rounded-2 px-3 py-2 bg-white">
+                    <!-- Pills navs -->
+                    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+                        <li class="nav-item d-flex" role="presentation">
+                            <a class="nav-link d-flex align-items-center justify-content-center bg-dark w-100 active" id="ex1-tab-1" data-mdb-toggle="pill" role="tab" aria-controls="ex1-pills-1">Specification</a>
+                        </li>
+                    </ul>
+                    <!-- Pills navs -->
+                    <!-- Pills content -->
+                    <div class="tab-content" id="ex1-content">
+                        <div class="tab-pane fade show active" id="ex1-pills-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+                            <p>
+                               @Model.Desc
+                            </p>
+                            <table class="table border mt-3 mb-2">
+                                @foreach (var item in Model.ProductSpecifications)
+                                {
+                                    <tr>
+                                        <th class="py-2">@item.Name:</th>
+                                        <td class="py-2">@item.Desc</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Pills content -->
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="px-0 border rounded-2 shadow-0">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Similar items</h5>
+                            @foreach (var item in ViewBag.RelatedProducts)
+                            {
+                                if(item.Id != Model.Id){
+                                    <a style="cursor:pointer;" asp-action="product" asp-route-id="@item.Id">
+                                        <div class="d-flex mb-3">
+                                            <img src="~/assets/img/product/@item.Images[0].ImgUrl" style="min-width: 96px; height: 96px;" class="img-md img-thumbnail" />
+                                            <div class="info ml-3">
+
+                                                <span class="text-dark mb-2">@item.Name</span><br>
+                                                <strong class="text-dark ms-3"> $@item.Price</strong>
+                                            </div>
+                                           
+                                        </div>
+                                    </a>
+                                }                               
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+           <div class="col-8 mb-5">
+               <div class="blog__details__comment">
+                            <h4>Leave A Comment</h4>
+                            <form action="@Url.Action("CreateProductComment", "Shop")" method="post">
+                                <div class="row">
+                            <input type="text" placeholder="Name" name="productId" style="display:none" value="@Model.Id">
+                                    
+            @if (!User.Identity.IsAuthenticated)
+            {
+                                <div class="col-lg-4 col-md-4">
+                                    <input type="text" placeholder="Name" name="name">
+                                </div>
+                                            <div class="col-lg-4 col-md-4">
+                                                <input type="text" placeholder="Email" name="email">
+                                            </div>
+            }
+            else{
+                                <input type="text" placeholder="Name" name="name" style="display:none" value="@User.Identity.Name">
+            }
+                                    <div class="col-lg-12 text-center">
+                                        <textarea placeholder="Comment" name="comment"></textarea>
+                                        <button type="submit" class="site-btn">Post Comment</button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                <div class="blog__details__btns">
+                    <div class="row mt-3">
+                        @foreach (var item in Model.ProductComments.Take(3))
+                        {
+                            <div class="col-lg-12 col-md-6 col-sm-6">
+                                <div class="blog__details__btns__item" style="padding: 20px; margin-bottom: 20px;">
+                                    <h6>@item.UserName</h6>
+                                    <p style="line-break: anywhere;">@item.Comment</p>
+                                    @if (User.Identity.Name == item.UserName)
+                                    {
+                                        <a class="btn btn-danger btn-sm" asp-controller="shop" asp-action="DeleteProductComment" asp-route-blogId="@Model.Id" asp-route-commentId="@item.Id">Delete</a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+           </div>
+        </div>
+    </div>
+</section>
+

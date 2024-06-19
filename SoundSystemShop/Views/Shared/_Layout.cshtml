@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="ElectroShop">
+    <meta name="keywords" content="ElectroShop, sound, music">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+
+    <title>ElectroShop</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="~/assets/css/style.css" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<!-- Start of LiveChat (www.livechat.com) code -->
+<script>
+    window.__lc = window.__lc || {};
+    window.__lc.license = 16247382;
+    ;(function(n,t,c){function i(n){return e._h?e._h.apply(null,n):e._q.push(n)}var e={_q:[],_h:null,_v:"2.0",on:function(){i(["on",c.call(arguments)])},once:function(){i(["once",c.call(arguments)])},off:function(){i(["off",c.call(arguments)])},get:function(){if(!e._h)throw new Error("[LiveChatWidget] You can't use getters before load.");return i(["get",c.call(arguments)])},call:function(){i(["call",c.call(arguments)])},init:function(){var n=t.createElement("script");n.async=!0,n.type="text/javascript",n.src="https://cdn.livechatinc.com/tracking.js",t.head.appendChild(n)}};!n.__lc.asyncInit&&e.init(),n.LiveChatWidget=n.LiveChatWidget||e}(window,document,[].slice))
+</script>
+<noscript><a href="https://www.livechat.com/chat-with/16247382/" rel="nofollow">Chat with us</a>, powered by <a href="https://www.livechat.com/?welcome" rel="noopener nofollow" target="_blank">LiveChat</a></noscript>
+<!-- End of LiveChat code -->
+
+
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Offcanvas Menu Begin -->
+    <div class="offcanvas-menu-overlay"></div>
+    <div class="offcanvas-menu-wrapper">
+        <div class="offcanvas__nav__option">
+            <a class="search-switch"><img src="~/assets/img/icon/search.png" alt=""></a>
+            <a asp-controller="basket" asp-action="index"><img src="~/assets/img/icon/cart.png" alt=""> <span>0</span></a>
+            <a asp-action="index" asp-controller="wishlist" class="whishlist mr-2 text-dark"><i class="fa-regular fa-heart"></i><sup class="wishlistCount d-none">0</sup></a>
+            
+                @if (User.Identity.IsAuthenticated)
+                {
+                <a>
+                    <ul style="list-style: none;">
+                        <li style="text-decoration: none; ">
+                            <a class="profileImage" style="color: #FFFFFF; background-color: #0f6674; margin-left: 15px; border: 1px solid #0f6674; padding: 5px 11px; border-radius: 50%"></a>
+                            <ul class="dropdown" style="top: 70px;left: 200px;width: 100px;">
+                                <li><a asp-controller="account" asp-action="ChangePassword">Change Password</a></li>
+                                <li><a asp-controller="account" asp-action="logout">Log Out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </a>
+                }
+                else
+                {
+                    <a><i class="fa-user fa-solid" style="color: #0b0b0b; margin-left: 10px; border: 1px solid #0b0b0b; padding: 7px; border-radius: 50%"></i></a>
+                }
+            
+
+        </div>
+        <div id="mobile-menu-wrap"></div>
+       
+    </div>
+    <!-- Offcanvas Menu End -->
+
+    <!-- Header Section Begin -->
+    <header class="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3">
+                    <div class="header__logo">
+                        <a asp-controller="home" asp-action="index"><img src="~/assets/img/logo.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <nav class="header__menu mobile-menu">
+                        <ul>
+                            <li><a asp-controller="home" asp-action="index">Home</a></li>
+                            <li><a asp-controller="shop" asp-action="index">Shop</a></li>
+                            <li><a>Pages</a>
+                                <ul class="dropdown">
+                                    <li><a asp-controller="about" asp-action="index">About Us</a></li>
+                                    <li><a asp-controller="blog" asp-action="index">Blog</a></li>
+                                    <li><a asp-controller="contact" asp-action="index">Contacts</a></li>
+                                </ul>
+                            </li>
+                           
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li><a asp-controller="ownproduct" asp-action="index">My Product</a></li>
+                            }
+                            else{
+                                <li><a asp-controller="account" asp-action="register">Register</a></li>
+                                <li><a asp-controller="account" asp-action="login">Login</a></li>
+                            }
+                            
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-lg-3 col-md-3 removed-section">
+                    <div class="header__nav__option" style="display: flex;justify-content: flex-end;">
+                        <a class="search-switch" style="margin-right: 15px"><img src="~/assets/img/icon/search.png" alt=""></a>
+                        <a asp-action="index" asp-controller="wishlist" class="whishlist mr-2 text-dark"><i class="fa-regular fa-heart"></i><sup class="wishlistCount d-none">0</sup></a>
+                        <a asp-controller="basket" asp-action="index">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect width="24" height="24" fill="white"></rect>
+                                <g clip-path="url(#clip0_40_562)">
+                                    <path d="M20.5556 15.0939H7.45333C7.19129 15.0939 6.96575 14.9064 6.91099 14.6442L4.73576 4.13433H1.55407C1.24836 4.13433 1 3.88011 1 3.56716C1 3.25422 1.24836 3 1.55407 3H5.18424C5.44628 3 5.67182 3.1875 5.72658 3.44973L7.90246 13.9596H20.1247L21.7335 7.48727H9.27852C8.9728 7.48727 8.72444 7.23305 8.72444 6.92011C8.72444 6.60716 8.9728 6.35294 9.27852 6.35294H22.4459C22.6167 6.35294 22.7784 6.43368 22.8833 6.5718C22.9883 6.70992 23.0248 6.89008 22.983 7.05956L21.0927 14.6662C21.0301 14.9185 20.8091 15.0939 20.5556 15.0939Z"
+                                          fill="#020A0A"></path>
+                                    <path d="M9.76744 22.0004C8.09609 22.0004 6.73633 20.6085 6.73633 18.8976C6.73633 17.1868 8.09609 15.7949 9.76744 15.7949C11.4388 15.7949 12.7986 17.1868 12.7986 18.8976C12.7986 20.6085 11.4388 22.0004 9.76744 22.0004ZM9.76744 16.9293C8.70688 16.9293 7.84448 17.812 7.84448 18.8976C7.84448 19.9833 8.70688 20.866 9.76744 20.866C10.828 20.866 11.6904 19.9833 11.6904 18.8976C11.6904 17.812 10.828 16.9293 9.76744 16.9293Z"
+                                          fill="#020A0A"></path>
+                                    <path d="M18.1763 22.0004C16.5049 22.0004 15.1451 20.6085 15.1451 18.8976C15.1451 17.1868 16.5049 15.7949 18.1763 15.7949C19.8476 15.7949 21.2074 17.1868 21.2074 18.8976C21.2074 20.6085 19.8476 22.0004 18.1763 22.0004ZM18.1763 16.9293C17.1157 16.9293 16.2533 17.812 16.2533 18.8976C16.2533 19.9833 17.1157 20.866 18.1763 20.866C19.2368 20.866 20.0992 19.9833 20.0992 18.8976C20.0992 17.812 19.2368 16.9293 18.1763 16.9293Z"
+                                          fill="#020A0A"></path>
+                                    <path d="M16.3186 13.0253H11.2341C10.9643 13.0253 10.7452 12.8011 10.7452 12.5249C10.7452 12.2486 10.9643 12.0244 11.2341 12.0244H16.3186C16.5884 12.0244 16.8075 12.2486 16.8075 12.5249C16.8075 12.8011 16.5884 13.0253 16.3186 13.0253Z"
+                                          fill="#FF003C"></path>
+                                </g>
+                                <defs>
+                                    <clipPath id="clip0_40_562">
+                                        <rect width="22" height="19" fill="white" transform="translate(1 3)"></rect>
+                                    </clipPath>
+                                </defs>
+                            </svg> <span id="basketCount" style="left:10px; top:-5px;">0</span>
+                        </a>
+                      
+                        
+                        @if (User.Identity.IsAuthenticated)
+                        {
+
+                            <ul style="list-style: none;">
+                                <li style="text-decoration: none; ">
+                                    <input class="firstName" type="text" value="@User.Identity.Name" style="display: none">
+                                    <a  class="profileImage" style="color: #FFFFFF; background-color: #0f6674; margin-left: 15px; border: 1px solid #0f6674; padding: 5px 11px; border-radius: 50%"></a>
+                                    <ul class="dropdown" style="top: 70px;left: 200px;width: 100px;">
+                                        <li><a asp-controller="account" asp-action="ChangePassword">Change Password</a></li>
+                                        <li><a asp-controller="account" asp-action="logout">Log Out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                        }
+                        else
+                        {
+        <a asp-action="login" asp-controller="account"><i class="fa-user fa-solid" style="color: #0b0b0b; margin-left: 10px; border: 1px solid #0b0b0b; padding: 7px; border-radius: 50%"></i></a>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="canvas__open"><i class="fa fa-bars"></i></div>
+        </div>
+    </header>
+        @RenderBody()
+     <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="footer__about">
+                        <p>The customer is at the heart of our unique business model, which includes design.</p>
+                        <a ><img src="~/assets/img/payment.png" alt=""></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>Contact</h6>
+                        <ul>
+                            <li><a>(+994)-12-345-67-89</a></li>
+                            <li><a asp-controller="contact" asp-action="index">Get Our Location</a></li>
+                            <li><a asp-controller="blog" asp-action="index">Look Our Blog</a></li>
+                            <li class="d-flex justify-content-between">
+
+                                <a><i class="fa-brands fa-instagram fs-3"></i></a> 
+                                <a><i class="fa-brands fa-facebook fs-3"></i></a> 
+                                <a><i class="fa-brands fa-twitter fs-3"></i></a>
+                                <a><i class="fa-brands fa-linkedin fs-3"></i></a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                    <div class="footer__widget">
+                        <h6>NewLetter</h6>
+                        <div class="footer__newslatter">
+                            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="footer__copyright__text">
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p>Copyright ©
+                           
+                            All rights reserved
+                        </p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- Footer Section End -->
+
+    <!-- Search Begin -->
+    <div class="search-model">
+        <div class="h-100 d-flex align-items-center justify-content-center">
+            <div class="search-close-switch">+</div>
+            <div class="col-lg-12">
+                <div >
+                    <form class="search-model-form">
+                        <input type="text" id="search-input" placeholder="Search here.....">
+                    </form>
+                </div>
+                <div id="searchList" ></div>
+            </div>
+        </div>
+    </div>
+    <!-- Search End -->
+
+    <!-- Js Plugins -->
+    <script src="~/assets/js/jquery-3.3.1.min.js"></script>
+    <script src="~/assets/js/bootstrap.min.js"></script>
+    <script src="~/assets/js/jquery.nice-select.min.js"></script>
+    <script src="~/assets/js/jquery.nicescroll.min.js"></script>
+    <script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="~/assets/js/jquery.countdown.min.js"></script>
+    <script src="~/assets/js/jquery.slicknav.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <script src="https://apis.google.com/js/platform.js"></script>
+    <script src="~/assets/js/mixitup.min.js"></script>
+    <script src="~/assets/js/owl.carousel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/assets/js/main.js"></script>
+
+</body>
+
+</html>

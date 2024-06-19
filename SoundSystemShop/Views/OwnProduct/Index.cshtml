@@ -1,0 +1,75 @@
+@model List<Product>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>title</title>
+</head>
+<body>
+<div class="container mb-5" style="margin-top: 113px;">
+    <div class="row">
+        <div class="col-lg-12 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <a class="btn btn-success" asp-controller="ownProduct" asp-action="create">Create Own Product</a>
+                        <a class="btn btn-primary text-light" asp-controller="ownProduct" asp-action="ConfirmedProduct">Orders</a>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Price</th>
+                                <th>Description</th>
+    
+                                <th>Settings</th>
+                            </tr>
+                            </thead>
+                                <tbody>
+                                    @foreach (var product in Model)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <img src="~/assets/img/product/@product.Images.FirstOrDefault().ImgUrl" width="90" height="70" alt="" />
+                                            </td>
+                                            <td>$@product.Price</td>
+                                            <td>@product.Desc</td>
+                                            <td>
+                                                <a class="btn btn-secondary" asp-controller="OwnProduct" asp-action="detail" asp-route-id="@product.Id">Detail</a>
+                                                <a class="btn btn-secondary" asp-controller="OwnProduct" asp-action="delete" asp-route-id="@product.Id">Delete</a>
+                                                <a class="btn btn-secondary order-button" data-id="@product.Id" asp-controller="OwnProduct" asp-action="Order" asp-route-id="@product.Id">Order</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+
+
+
+
+</html>
+<style>
+    .clicked {
+        background-color: #ccc; /* Change the background color to gray */
+        color: #888; /* Change the text color to a lighter shade */
+        cursor: not-allowed; /* Change the cursor to indicate it's disabled */
+    }
+</style>
+
+

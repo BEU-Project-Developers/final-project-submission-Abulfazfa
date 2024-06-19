@@ -1,0 +1,257 @@
+﻿@model HomeVW
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<!-- Hero Section Begin -->
+<section id="bargainSection" class="d-none" style="background-color: rgb(4, 1, 37); width: 98.7vw; margin-top:113px">
+    <div class="row" style="    width: 100%;">
+
+        <div class="categories__deal__countdown" style="margin: auto;">
+            <h2 class="text-light">Huge Sale</h2>
+            <div class="categories__deal__countdown__timer" id="countdown">
+                <div class="cd-item">
+                    <span class="hourArea text-danger" style="font-size: 44px;"></span>
+                    <p class="text-light">Hours</p>
+                </div>
+                <div class="cd-item">
+                    <span class="minuteArea text-danger" style="font-size: 44px;"></span>
+                    <p class="text-light">Minutes</p>
+                </div>
+                <div class="cd-item">
+                    <span class="secondArea text-danger" style="font-size: 44px;"></span>
+                    <p class="text-light">Seconds</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <section class="hero m-0">
+        
+        <div class="hero__slider owl-carousel">
+            @foreach (var item in Model.Sliders)
+        {
+            <div class="hero__items set-bg" data-setbg="/assets/img/hero/@item.ImgUrl">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-7 col-md-8">
+                            <div class="hero__text">
+                                <h6>@item.Header</h6>
+                                <h2 class="text-light">@item.Title</h2>
+                                <p class="text-light">@item.Description</p>
+                                <a asp-controller="shop" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+<section class="latest spad">
+    <div class="container">
+        @if (Model.UserActivities.Count > 0)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <h2 class="test123" style=" font-weight:bold">Recently viewed</h2>
+
+
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var product in Model.UserActivities)
+                {
+
+                    <div class="product col-lg-3 col-md-4 swiper-slide">
+                        <a asp-controller="shop" asp-action="product" asp-route-id="@product.Id">
+                            <div class="product-img d-flex justify-content-center mt-5 mb-4">
+                                <img class="img-fluid w-100"
+                                     src="~/assets/img/product/@product.Images.FirstOrDefault().ImgUrl"
+                                     alt="" style="height:262.5px;">
+                            </div>
+                            <div class="product-name">
+                                <p class="text-center fw-bold text-dark mb-4 ">@product.Name</p>
+                            </div>
+                            <div class="product-price d-flex justify-content-around align-items-center">
+                                <div class="discount">
+                                    @if (product.InDiscount)
+                                    {
+                                        <span style="text-decoration:line-through solid red;font-weight:normal"
+                                              class="text-dark">
+                                            <small class="azn_span text-dark">$</small> @product.Price.00
+                                        </span>
+                                        <br>
+                                        <span class="nprice text-danger fw-bold" id="price-1060446">
+                                            <small class="azn_span fw-normal">$</small> @product.DiscountPrice.00
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span style="font-weight:normal"
+                                              class="text-dark">
+                                            <small class="azn_span text-dark">$</small> @product.Price.00
+                                        </span>
+                                    }
+
+                                </div>
+                                <a asp-controller="wishlist" asp-action="AddToWishlist" asp-route-productId="@product.Id" class="wishlistbutton text-dark"><i class="fa-regular fa-heart"></i></a>
+                                <span style="display:none;" id="productId">@product.Id</span>
+
+                                <a class="btn-add-to-cart mt-2 border-0 text-light minusIcon" data-id="@product.Id"
+                                   style="background-color: black; font-size: 14px; font-weight: bold; padding: 5px 13px; border-radius: 3px; cursor:pointer;">
+                                    Add Basket
+                                </a>
+
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</section>
+
+    <!-- Product Section Begin -->
+    <section class="product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                <h2 style="font-weight:bold; margin-bottom:30px;">Best Sellers</h2>
+                </div>
+            </div>
+            <div class="row product__filter">
+                @foreach (var product in Model.Products.Where(p => p.ProductRating > 3))
+                {
+                <div class="product col-lg-3 col-md-4 swiper-slide">
+                    <a asp-controller="shop" asp-action="product" asp-route-id="@product.Id">
+                        <div class="product-img d-flex justify-content-center mt-5 mb-4">
+                            <img class="img-fluid w-100"
+                             src="~/assets/img/product/@product.Images.FirstOrDefault().ImgUrl"
+                             alt="" style="height:262.5px;">
+                        </div>
+                       
+                        <div class="product-name">
+                            <p class="text-center fw-bold text-dark mb-4 ">@product.Name</p>
+                        </div>
+                        <div class="product-price d-flex justify-content-around align-items-center">
+                            <div class="discount">
+                                @if (product.InDiscount)
+                                {
+                                    <span style="text-decoration:line-through solid red;font-weight:normal"
+                                  class="text-dark">
+                                        <small class="azn_span text-dark">$</small> @product.Price.00
+                                    </span>
+                                    <br>
+                                    <span class="nprice text-danger fw-bold" id="price-1060446">
+                                        <small class="azn_span fw-normal">$</small> @product.DiscountPrice.00
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span style="font-weight:normal"
+                                  class="text-dark">
+                                        <small class="azn_span text-dark">$</small> @product.Price.00
+                                    </span>
+                                }
+
+                            </div>
+                            <a id="wishlistButton" asp-controller="wishlist" asp-action="AddToWishlist" asp-route-productId="@product.Id" class="wishlistbutton text-dark"><i class="fa-regular fa-heart"></i></a>
+
+                            <a id="addToCartButton" class="btn-add-to-cart mt-2 border-0 text-light minusIcon" data-id="@product.Id"
+                               style="background-color: black; font-size: 14px; font-weight: bold; padding: 5px 13px; border-radius: 3px; cursor:pointer;">
+                                Add Basket
+                            </a>
+                        </div>
+                    </a>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- Product Section End -->
+
+    <!-- Categories Section Begin -->
+    <section class="categories spad">
+        <div class="container">
+            <div class="row">
+                @if (Model.DayOfDiscount != null && Model.DayOfDiscount.InDiscount == true)
+                {
+                    <div class="col-lg-4">
+                    <div class="categories__hot__deal">
+                        <a asp-controller="shop" asp-action="product"><img src="~/assets/img/product/@Model.DayOfDiscount.Images.FirstOrDefault().ImgUrl" alt=""></a>
+                        <div class="hot__deal__sticker">
+                            <span>Sale Of</span>
+                            <h5>$@Model.DayOfDiscount.DiscountPrice</h5>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-lg-4 offset-lg-1">
+                    <div class="categories__deal__countdown">
+                        <span>Deal Of The Day</span>
+                        <h2>@Model.DayOfDiscount.Name</h2>
+                        
+                        <div class="categories__deal__countdown__timer" >
+                            <div class="cd-item">
+                                <span class="hourArea"></span>
+                                <p>Hours</p>
+                            </div>
+                            <div class="cd-item">
+                                <span class="minuteArea" cl></span>
+                                <p>Minutes</p>
+                            </div>
+                            <div class="cd-item">
+                                <span class="secondArea"></span>
+                                <p>Seconds</p>
+                            </div>
+                        </div>
+                        <a asp-controller="shop" asp-route-id="@Model.DayOfDiscount.Id" asp-action="product" class="primary-btn">Shop now</a>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
+
+   
+
+    <!-- Latest Blog Section Begin -->
+    <section class="latest spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Latest Added Blogs</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach (var item in Model.Blogs.Take(3)){
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="blog__item">
+                            <div class="blog__item__pic set-bg" data-setbg="/assets/img/blog/@item.ImgUrl" style="background-position: left;"></div>
+                            <div class="blog__item__text">
+                                <span><img src="~/assets/img/icon/calendar.png" alt=""> @item.CreationDate</span>
+                                <h5>@item.Name</h5>
+                                <a asp-controller="blog" asp-action="detail" asp-route-id="@item.Id">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+    <style>
+    .cd-item{
+        margin-right: 18px;
+    }
+    </style>
+    <!-- Latest Blog Section End -->

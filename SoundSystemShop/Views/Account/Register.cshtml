@@ -1,0 +1,97 @@
+@model RegisterVM
+
+@{
+    Layout = "_Layout";
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modernize Free</title>
+    <link rel="shortcut icon" type="image/png" href="~/admin/images/logos/favicon.png" />
+    <link rel="stylesheet" href="~/admin/css/styles.min.css" />
+</head>
+
+<body>
+    <!--  Body Wrapper -->
+    <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+         data-sidebar-position="fixed" data-header-position="fixed">
+        <div class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+            <div class="d-flex align-items-center justify-content-center w-100">
+                <div class="row justify-content-center w-100">
+                    <div class="col-md-8 col-lg-6 col-xxl-3 ">
+                        <div class="card mb-0" style="margin-top:120px">
+                            <div class="card-body">
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <form method="post" id="register-page">
+                                    <div class="mb-3">
+                                        <label asp-for="Fullname" class="form-label"></label>
+                                        <input asp-for="Fullname" class="form-control">
+                                        <span asp-validation-for="Fullname"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="Username" class="form-label"></label>
+                                        <input asp-for="Username" class="form-control">
+                                        <span asp-validation-for="Username"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label asp-for="Email" class="form-label"></label>
+                                        <input asp-for="Email" class="form-control">
+                                        <span asp-validation-for="Email"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <input asp-for="Location" id="locationInput" class="form-control" style="display:none;">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="Password" class="form-label"></label>
+                                        <input asp-for="Password" class="form-control">
+                                        <span asp-validation-for="Password"></span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label asp-for="ConfirmPassword" class="form-label"></label>
+                                        <input asp-for="ConfirmPassword" class="form-control">
+                                        <span asp-validation-for="ConfirmPassword"></span>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign Up</button>
+                              
+
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <p class="fs-4 mb-0 fw-bold">Already have an Account?</p>
+                                        <a asp-action="login" class="text-primary fw-bold ms-2">Sign In</a>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/admin/libs/jquery/dist/jquery.min.js"></script>
+    <script src="~/admin/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+    <!-- Add this script tag in your Razor View -->
+    <script>
+        const timezone = (Intl.DateTimeFormat().resolvedOptions().timeZone).split("/");
+        const locationInput = document.getElementById("locationInput");
+        locationInput.value = timezone;
+        console.log(locationInput.value);
+
+    </script>
+    <script>
+        const button = document.createElement('a');
+        button.href = 'https://accounts.google.com/o/oauth2/v2/auth?client_id=1011503719641-9oidh8lqa5vb6eiv2spt9o77jsa835ir.apps.googleusercontent.com&redirect_uri=https://yaverusta-001-site1.itempurl.com/&response_type=code&scope=profile%20email';
+        button.innerHTML = '<img src="https://developers.google.com/identity/sign-in/web/images/signin_button.png" alt="Continue with Google">';
+
+        document.querySelector('#register-page').appendChild(button);
+
+    </script>
+
+</body>
+
+</html>

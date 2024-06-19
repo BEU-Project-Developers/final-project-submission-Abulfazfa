@@ -1,0 +1,82 @@
+﻿@model CreateProductVM
+<section style="margin: 113px;">
+    <h2>Create Your Product</h2>
+    <div class="selectedArea" style="margin: 20px 0;">
+        <div class="col-4 ctgry">
+            <form method="post">
+                <div class="inputGroup d-flex">
+                    <label asp-for="Frame"></label>
+                    <input class="form-control" asp-for="Frame" id="frame" readonly>
+                    <button class="clearButton">Clear</button>
+                </div>
+
+                <div class="inputGroup d-flex">
+                    <label asp-for="Horn"></label>
+                    <input class="form-control" asp-for="Horn" id="horn" readonly>
+                    <button class="clearButton">Clear</button>
+                </div>
+
+                <div class="inputGroup d-flex">
+                    <label asp-for="Subwoofer"></label>
+                    <input class="form-control" asp-for="Subwoofer" id="subwoofer" readonly>
+                    <button class="clearButton">Clear</button>
+                </div>
+
+                <div class="inputGroup d-flex">
+                    <label asp-for="More"></label>
+                    <input class="form-control" asp-for="More" id="more" readonly>
+                    <button class="clearButton">Clear</button>
+                </div>
+
+               <input asp-for="UserName" value="@User.Identity.Name" class="d-none">
+            <button id="createButton" type="submit">Create</button>
+            </form>
+            
+        </div>
+    </div>
+    <button class="productButton" data-category="Frame">Frame</button>
+    <button class="productButton" data-category="Horn">Horn</button>
+    <button class="productButton" data-category="Subwoofer">Subwoofer</button>
+    <button class="productButton" data-category="More">More</button>
+    <div class="row area">
+    </div>
+</section>
+
+
+
+<script>
+    
+
+</script>
+
+<style>
+    /* Add some styles for the selected button */
+    .selected {
+        background-color: #007bff;
+        color: #fff;
+    }
+    li {
+        padding: 10px 0;
+    }
+    ul {
+        list-style: none;
+    }
+    .ctgry span{
+        margin-right: 10px;
+    }
+    .inputGroup{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    label{
+        margin-bottom: 0;
+    }
+    input{
+        margin: 0 10px;
+    }
+</style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>

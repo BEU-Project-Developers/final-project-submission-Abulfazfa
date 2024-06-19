@@ -1,0 +1,76 @@
+﻿@model List<Product>
+
+@{
+    Layout = "_Layout";
+}
+<section class="latest spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="test123" style=" font-weight:bold; display:none;">Recently viewed</h2>
+            </div>
+        </div>
+        <h3 class="mt-3 mb-3">My Orders</h3>
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                
+                <div class="product col-3 swiper-slide">
+                    <a asp-controller="shop" asp-action="product" asp-route-id="@product.Id">
+                        <div class="product-img d-flex justify-content-center mt-5 mb-4">
+                            <img class="img-fluid w-100"
+                             src="~/assets/img/product/@product.Images.FirstOrDefault().ImgUrl"
+                             alt="" style="height:262.5px;">
+                        </div>
+                        <div class="product-name">
+                            <p class="text-center fw-bold text-dark mb-4 ">@product.Name</p>
+                        </div>
+                        <div class="product-price d-flex justify-content-around align-items-center">
+                            <div class="discount">
+                                
+                                    <span style="font-weight:normal"
+                                  class="text-dark">
+                                        <small class="azn_span text-dark">$</small> @product.Price.00
+                                    </span>
+
+                            </div>
+                            <a class="btn-add-to-cart mt-2 border-0 text-light minusIcon" data-id="@product.Id"
+                           style="background-color: black; font-size: 14px; font-weight: bold; padding: 5px 13px; border-radius: 3px; cursor:pointer;">
+                                Add Basket
+                            </a>
+                            
+                        </div>
+                    </a>
+                    <button class="btn btn-primary share-button" data-toggle="modal" data-target="#searchModal" data-productid="@product.Id" data-userid="User">
+                        Share
+                    </button>
+
+
+                   
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="searchModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Search Users</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!-- Input Field and Search Button -->
+                <input type="text" id="usernameInput" placeholder="Enter username">
+                <button class="btn btn-primary" id="modalSearchButton">Search</button>
+
+                <!-- Display Search Results with Scroll -->
+                <div id="modalSearchResults" style="max-height: 300px; overflow-y: auto;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
